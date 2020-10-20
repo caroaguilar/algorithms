@@ -50,11 +50,16 @@ func getAnagramGroups(_ list: [String]) -> [[String]] {
   var groups: [[String]] = []
 
   for word in list {
+
+    // Check if the word is already part of any of the groups, if so we can continue
+    if groups.flatMap({$0}).contains(word) {
+      continue
+    }
     let rest = list.filter { $0 != word }
     groups.append(getAnagramGroupsAux(word, rest))
   }
 
-  return Array(Set(groups))
+  return groups
 }
 
 func getAnagramGroupsAux(_ word: String, _ list: [String]) -> [String] {
